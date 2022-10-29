@@ -103,7 +103,7 @@ int main()
 }
 ```
 
-The program using e.g. `gcc` prints out the following results:  
+The build program (e.g. using `gcc`) prints out the following results:  
 ```
 Result with n=0.0: 1.000000
 Exception FE_DIVBYZERO
