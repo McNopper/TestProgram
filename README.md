@@ -95,6 +95,27 @@ int main()
 }
 ```
 
+The program using e.g. `gcc` prints out the following results:  
+```
+Result with n=0.0: 1.000000
+Exception FE_DIVBYZERO
+Done.
+
+Result with n=1.0: 2.000000
+Done.
+
+Result with n=100.0: 2.704811
+Exception FE_INEXACT
+Done.
+
+Result with n=10000.0: 2.718597
+Exception FE_INEXACT
+Done.
+
+Result with n=inf: 1.000000
+Done.
+```
+
 ## Solution
 
 Request for `FE_DIVBYINFINITY` in header `fenv.h` for C/C++, where one can check, if a division by infinity occurred.
