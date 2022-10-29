@@ -1,4 +1,4 @@
-# Division by the infinity should be testable in C/C++
+# Division by infinity should be testable in C/C++
 
 ## Motivation
 
@@ -6,7 +6,7 @@ Following mathematical expression is given:
 
 ![Euler's number expression](graphics/expression.svg)
 
-For `n` going to `∞` [1], the constant Euler's number `e` [2] can be calculated. `e` is a transcedental number [3] and is approximatelly `2.718281` showing the first six decimal numbers without rounding.  
+For `n` going to `∞` [1], the constant Euler's number `e` [2] can be calculated. `e` is a transcendental number [3] and is approximately `2.718281` showing the first six decimal numbers without rounding.  
 
 In C/C++, this value can be calculated with following line of code:  
   
@@ -24,7 +24,7 @@ Following table shows the `result` with some given and increasing `n`:
 
 ## Problem
 
-For `n` having the value `INFINITY` defined in the C/C++ header `fenv.h` [4], this Euler's number expression calculates `1.0`, which seems to be abnormal. Furthermore, this header library has several functions and macros, to test abnormal results e.g. using `FE_DIVBYZERO` to test a division by zero.  
+For `n` having the value `INFINITY` defined in the C/C++ header `fenv.h` [4], this Euler's number expression calculates `1.0`, which seems to be abnormal. Furthermore, this header library has several functions and macros, to test abnormal results e.g., using `FE_DIVBYZERO` to test a division by zero.  
 However, to test against the problematic division by infinity, there is no macro given at this point of time.  
   
 It is assumed, that there are many other use cases, where a division by infinity is not tested and could cause runtime problems, providing non-expected values.
