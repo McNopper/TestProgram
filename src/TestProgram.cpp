@@ -3,9 +3,6 @@
 #include <cstdio>
 
 // Request for FE_DIVBYINFINITY in header fenv.h for C/C++
-//
-// Euler's number 				https://en.wikipedia.org/wiki/E_(mathematical_constant)
-// Floating-point environment	https://en.cppreference.com/w/cpp/numeric/fenv
 
 void executeExpression(float n)
 {
