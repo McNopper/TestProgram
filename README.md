@@ -1,4 +1,4 @@
-# Division by infinity should be testable in C/C++
+# Division by infinity should be testable in fenv.h
 
 ## Motivation
 
@@ -19,7 +19,9 @@ Following table shows the `result` with some given and increasing `n`:
 |       n | result   |
 |---------|----------|
 |     1.0 | 2.000000 |
+|    10.0 | 2.593743 |
 |   100.0 | 2.704811 |
+|  1000.0 | 2.717051 |
 | 10000.0 | 2.718597 |
 
 ## Problem
@@ -76,13 +78,19 @@ void executeExpression(float n)
 
 int main()
 {
-    float n = 0.0f;
-    executeExpression(n);
+	float n = 0.0f;
+	executeExpression(n);
 
     n = 1.0f;
     executeExpression(n);
 
+    n = 10.0f;
+    executeExpression(n);
+
     n = 100.0f;
+    executeExpression(n);
+
+    n = 1000.0f;
     executeExpression(n);
 
     n = 10000.0f;
@@ -104,7 +112,15 @@ Done.
 Result with n=1.0: 2.000000
 Done.
 
+Result with n=10.0: 2.593743
+Exception FE_INEXACT
+Done.
+
 Result with n=100.0: 2.704811
+Exception FE_INEXACT
+Done.
+
+Result with n=1000.0: 2.717051
 Exception FE_INEXACT
 Done.
 

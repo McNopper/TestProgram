@@ -48,7 +48,13 @@ int main()
     n = 1.0f;
     executeExpression(n);
 
+    n = 10.0f;
+    executeExpression(n);
+
     n = 100.0f;
+    executeExpression(n);
+
+    n = 1000.0f;
     executeExpression(n);
 
     n = 10000.0f;
