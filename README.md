@@ -8,7 +8,7 @@ Following mathematical expression is given:
 
 For `n` going to `∞` [1], the constant Euler's number `e` [2] can be calculated. `e` is a transcendental number [3] and is approximately `2.718281` showing the first six decimal numbers without rounding.  
 
-In C/C++, this value can be calculated with following line of code:  
+In C/C++, `e` can be approximated with following line of code:  
   
 ```cpp
 float result = powf(1.0f + 1.0f / n, n);
@@ -27,9 +27,9 @@ Following table shows the `result` with some given and increasing `n`:
 ## Problem
 
 For `n` having the value `INFINITY` defined in the C/C++ header `fenv.h` [4], this Euler's number expression calculates `1.0`, which seems to be abnormal. Furthermore, this header library has several functions and macros, to test abnormal results e.g., using `FE_DIVBYZERO` to test a division by zero.  
-However, to test against the problematic division by infinity, there is no macro given at this point of time.  
+However, to test against the problematic initial division by infinity and later raised by infinity, there is no macro given at this point of time.  
   
-It is assumed, that there are many other use cases, where a division by infinity is not tested and could cause runtime problems, providing non-expected values.
+It is assumed, that there are many other use cases, where a division by infinity (or other calculus) is not tested and could cause runtime problems, providing non-expected or invalid values.
   
 ### Test program
 
