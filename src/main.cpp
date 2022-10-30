@@ -2,14 +2,16 @@
 #include <cmath>
 #include <cstdio>
 
-// Request for FE_DIVBYINFINITY in header fenv.h for C/C++
+// Request, that c/∞ should be testable in C/C++
 
 void executeExpression(float n)
 {
 	std::feclearexcept(FE_ALL_EXCEPT);
 
 	float result = powf(1.0f + 1.0f / n, n);
+
 	int excepts = std::fetestexcept(FE_ALL_EXCEPT);
+	int classify = std::fpclassify(result);
 
 	printf("Result with n=%.1f: %f\n", n, result);
 
@@ -37,13 +39,33 @@ void executeExpression(float n)
 		}
 	}
 
+	if(classify != FP_NORMAL)
+	{
+		if (classify & FP_NAN)
+		{
+			printf("Classification FP_NAN\n");
+		}
+		if (classify & FP_INFINITE)
+		{
+			printf("Classification FP_INFINITE\n");
+		}
+		if (classify & FP_ZERO)
+		{
+			printf("Classification FP_ZERO\n");
+		}
+		if (classify & FP_SUBNORMAL)
+		{
+			printf("Classification FP_SUBNORMAL\n");
+		}
+	}
+
 	printf("Done.\n\n");
 }
 
 int main()
 {
-	float n = 0.0f;
-	executeExpression(n);
+    float n = 0.0f;
+    executeExpression(n);
 
     n = 1.0f;
     executeExpression(n);

@@ -1,4 +1,4 @@
-# Division by infinity should be testable in fenv.h
+# Division by infinity should be testable in C/C++
 
 ## Motivation
 
@@ -28,6 +28,7 @@ Following table shows the `result` with some given and increasing `n`:
 
 For `n` having the value `INFINITY` defined in the C/C++ header `fenv.h` [4], this Euler's number expression calculates `1.0`, which seems to be abnormal. Furthermore, this header library has several functions and macros, to test abnormal results e.g., using `FE_DIVBYZERO` to test a division by zero.  
 However, to test against the problematic initial division by infinity and later raised by infinity, there is no macro given at this point of time.  
+Also, FP Exceptions [5] is not reporting any issue.  
   
 It is assumed, that there are many other use cases, where a division by infinity (or other calculus) is not tested and could cause runtime problems, providing non-expected or invalid values.
   
@@ -38,14 +39,16 @@ It is assumed, that there are many other use cases, where a division by infinity
 #include <cmath>
 #include <cstdio>
 
-// Request for FE_DIVBYINFINITY in header fenv.h for C/C++
+// Request, that c/∞ should be testable in C/C++
 
 void executeExpression(float n)
 {
 	std::feclearexcept(FE_ALL_EXCEPT);
 
 	float result = powf(1.0f + 1.0f / n, n);
+
 	int excepts = std::fetestexcept(FE_ALL_EXCEPT);
+	int classify = std::fpclassify(result);
 
 	printf("Result with n=%.1f: %f\n", n, result);
 
@@ -70,6 +73,26 @@ void executeExpression(float n)
 		if (excepts & FE_UNDERFLOW)
 		{
 			printf("Exception FE_UNDERFLOW\n");
+		}
+	}
+
+	if(classify != FP_NORMAL)
+	{
+		if (classify & FP_NAN)
+		{
+			printf("Classification FP_NAN\n");
+		}
+		if (classify & FP_INFINITE)
+		{
+			printf("Classification FP_INFINITE\n");
+		}
+		if (classify & FP_ZERO)
+		{
+			printf("Classification FP_ZERO\n");
+		}
+		if (classify & FP_SUBNORMAL)
+		{
+			printf("Classification FP_SUBNORMAL\n");
 		}
 	}
 
@@ -134,7 +157,7 @@ Done.
 
 ## Solution
 
-Request for `FE_DIVBYINFINITY` in header `fenv.h` for C/C++, where one can check, if a division by infinity occurred.
+Request, that c/∞ should be testable somehow in C/C++.  
 
 ## Resources
 
@@ -142,3 +165,4 @@ Request for `FE_DIVBYINFINITY` in header `fenv.h` for C/C++, where one can check
 [2] https://en.wikipedia.org/wiki/E_(mathematical_constant)  
 [3] https://en.wikipedia.org/wiki/Transcendental_number  
 [4]	https://en.cppreference.com/w/cpp/numeric/fenv  
+[5] https://www.gnu.org/software/libc/manual/html_node/Infinity-and-NaN.html
