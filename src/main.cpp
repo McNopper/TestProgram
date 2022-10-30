@@ -10,30 +10,30 @@ void executeExpression(float n)
 
 	float result = powf(1.0f + 1.0f / n, n);
 
-	int excepts = std::fetestexcept(FE_ALL_EXCEPT);
+	int except = std::fetestexcept(FE_ALL_EXCEPT);
 	int classify = std::fpclassify(result);
 
 	printf("Result with n=%.1f: %f\n", n, result);
 
-	if(excepts)
+	if(except)
 	{
-		if (excepts & FE_DIVBYZERO)
+		if (except & FE_DIVBYZERO)
 		{
 			printf("Exception FE_DIVBYZERO\n");
 		}
-		if (excepts & FE_INEXACT)
+		if (except & FE_INEXACT)
 		{
 			printf("Exception FE_INEXACT\n");
 		}
-		if (excepts & FE_INVALID)
+		if (except & FE_INVALID)
 		{
 			printf("Exception FE_INVALID\n");
 		}
-		if (excepts & FE_OVERFLOW)
+		if (except & FE_OVERFLOW)
 		{
 			printf("Exception FE_OVERFLOW\n");
 		}
-		if (excepts & FE_UNDERFLOW)
+		if (except & FE_UNDERFLOW)
 		{
 			printf("Exception FE_UNDERFLOW\n");
 		}
